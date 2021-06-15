@@ -5,8 +5,8 @@
 
 
 # Set these parameters before executing Python Script
-study = "yl"
-datadir = "/Volumes/data/ProtectedData/IRB_STUDY00145986_Yoga/Manuscripts/1. Family PA Influence/Data/AccelData"   
+study = ""
+datadir = ""
 adult_cp = ""
 child_cp = "freedson_child"
 axis = 1
