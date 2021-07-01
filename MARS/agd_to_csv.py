@@ -18,14 +18,26 @@ def read_accel_data(accel_data):
     accel_data['Date'] = [d.date() for d in accel_data['dataTimestamp']]
     accel_data['Date'] = pd.to_datetime(accel_data['Date']).dt.strftime("%m/%d/%Y")
     accel_data[' Time'] = [d.time() for d in accel_data['dataTimestamp']]
-    accel_data = accel_data.rename(columns={"axis1": " Axis1", "axis2": "Axis2", "axis3": "Axis3",
+    
+    try:
+        accel_data = accel_data.rename(columns={"axis1": " Axis1", "axis2": "Axis2", "axis3": "Axis3",
                "steps": "Steps", "lux": "Lux", "inclineOff": "Inclinometer Off", 
                "inclineStanding": "Inclinometer Standing", "inclineSitting": "Inclinometer Sitting",
                "inclineLying": "Inclinometer Lying"})
-    accel_data['Vector Magnitude'] = round(np.sqrt(accel_data[' Axis1']**2 + accel_data['Axis2']**2 + accel_data['Axis3']**2), 2)
-    accel_data = accel_data.drop(columns=['dataTimestamp'])
+        accel_data['Vector Magnitude'] = round(np.sqrt(accel_data[' Axis1']**2 + accel_data['Axis2']**2 + accel_data['Axis3']**2), 2)
+      
+    
+    except:
+        accel_data = accel_data.rename(columns={"axis1": " Axis1", "steps": "Steps", "lux": "Lux",
+               "inclineOff": "Inclinometer Off", "inclineStanding": "Inclinometer Standing",
+               "inclineSitting": "Inclinometer Sitting", "inclineLying": "Inclinometer Lying"})
+        accel_data.insert(2, "Axis2", np.nan)
+        accel_data.insert(3, "Axis3", np.nan)
+        accel_data['Vector Magnitude'] = np.nan
+
     cols = ['Date', ' Time', ' Axis1', 'Axis2', 'Axis3', 'Steps', 'Lux', 'Inclinometer Off', 'Inclinometer Standing', 
-    'Inclinometer Sitting', 'Inclinometer Lying', 'Vector Magnitude']
+            'Inclinometer Sitting', 'Inclinometer Lying', 'Vector Magnitude']
+    accel_data = accel_data.drop(columns=['dataTimestamp'])
     accel_data = accel_data[cols]
     return accel_data
 
