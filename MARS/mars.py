@@ -5,10 +5,11 @@
 
 
 # Set these parameters before executing Python Script
-study = ""
-datadir = ""
-adult_cp = ""
-child_cp = "freedson_child"
+study = "kuccsp"
+study_id = "AKUCCSP01" # Example of a study ID
+datadir = "/Users/bhelsel/Desktop/Test/AGD60"
+adult_cp = "troiano_adult"
+child_cp = ""
 axis = 1
 valid = 480
 tol = 2
@@ -56,7 +57,8 @@ accel_data = pd.DataFrame()
 for file in csv_files:        
     
     # Data Processing
-    record_id = file[0:5]
+    
+    record_id = file[0:len(study_id)]
     print("Processing accelerometer data from: " + record_id)
     df = gt.read_accel_csv(demo, file, record_id)
     df['season'] = pd.DatetimeIndex(df['date']).dayofyear.map(gt.season)
@@ -121,7 +123,7 @@ if (child_cp != "") & (adult_cp != ""):
     name = study + "_" + child_cp + "_" + adult_cp + "_" + str(axis) + "axis"
 elif child_cp != "":
     name = study + "_" + child_cp + "_" + str(axis) + "axis"
-elif adult_set_name != "":
+elif adult_cp != "":
     name = study + "_" + adult_cp + "_" + str(axis) + "axis"
 
     

@@ -14,7 +14,7 @@ def date_of_birth(datadir, file_list):
                 demographics = datadir + "/" + file
     demo = pd.DataFrame(pd.read_csv(demographics, error_bad_lines=False))
     demo = demo.dropna(how='all')
-    demo['id'] = demo['id'].astype(int)
+    demo['id'] = demo['id'].astype(str)
     demo.columns = demo.columns.str.lower()
     demo['dob'] = pd.to_datetime(demo['dob']).dt.strftime("%m/%d/%Y")
     return demo
@@ -23,8 +23,8 @@ def date_of_birth(datadir, file_list):
 def read_accel_csv(demo, file, record_id):
     df = pd.read_csv(open(file), engine='python', skiprows=10, error_bad_lines=False)    # Read accelerometer data
     df.insert(loc=0, column='month', value=record_id[0])    # Add month from record name
-    df.insert(loc=1, column='id', value=record_id[1:5])    # Add id from record name
-    df['id'] = df['id'].astype(int)    # Change id to integer to allow date of birth merge
+    df.insert(loc=1, column='id', value=record_id[1:len(record_id)])    # Add id from record name
+    df['id'] = df['id'].astype(str)    # Change id to integer to allow date of birth merge
     df = pd.merge(demo, df, on='id', how='inner')    # Merge date of birth data
     df.columns = df.columns.str.replace(' ', '')    # Remove all spaces from variable names
     df.columns = df.columns.str.lower()    # Change all columns to lower case
