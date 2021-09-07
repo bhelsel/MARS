@@ -5,9 +5,9 @@
 
 
 # Set these parameters before executing Python Script
-study = "kuccsp"
-study_id = "AKUCCSP01" # Example of a study ID
-datadir = "/Users/bhelsel/Desktop/Test/AGD60"
+study = ""
+study_id = "A1001" # Example of a study ID (assumes first character represents timepoint (e.g., "A", "B")
+datadir = ""
 adult_cp = "troiano_adult"
 child_cp = ""
 axis = 1
