@@ -12,7 +12,7 @@ def date_of_birth(datadir, file_list):
         if file[-7:].lower()=='dob.csv':
             if file[0]!=".":
                 demographics = datadir + "/" + file
-    demo = pd.DataFrame(pd.read_csv(demographics, error_bad_lines=False))
+    demo = pd.DataFrame(pd.read_csv(demographics, on_bad_lines='skip'))
     demo = demo.dropna(how='all')
     demo['id'] = demo['id'].astype(str)
     demo.columns = demo.columns.str.lower()
