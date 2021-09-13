@@ -21,7 +21,7 @@ def date_of_birth(datadir, file_list):
 
 # Can I make these part of agd_to_csv function
 def read_accel_csv(demo, file, record_id):
-    df = pd.read_csv(open(file), engine='python', skiprows=10, error_bad_lines=False)    # Read accelerometer data
+    df = pd.read_csv(open(file), engine='python', skiprows=10, on_bad_lines='skip')    # Read accelerometer data
     df.insert(loc=0, column='month', value=record_id[0])    # Add month from record name
     df.insert(loc=1, column='id', value=record_id[1:len(record_id)])    # Add id from record name
     df['id'] = df['id'].astype(str)    # Change id to integer to allow date of birth merge
